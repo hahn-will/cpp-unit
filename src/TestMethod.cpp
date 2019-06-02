@@ -9,10 +9,6 @@ TestMethod::~TestMethod() {
   }
 }
 
-void delete_wrapper(void *params) {
-  delete(params);
-}
-
 void TestMethod::AddTestCase(void * params) {
   AddTestCaseDeleteFunction(, params);
 }
