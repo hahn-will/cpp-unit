@@ -4,10 +4,10 @@ project(simple-cpp-unit VERSION 1.0.0
   DESCRIPTION "A simple cpp unit test library")
 include(GNUInstallDirs)
 
-add_library(simple-cpp-unit SHARED src/TestSuite.cpp src/TestMethod.cpp)
+add_library(simple-cpp-unit SHARED src/test.cpp)
 set_target_properties(simple-cpp-unit PROPERTIES
   VERSION ${PROJECT_VERSION}
-  PUBLIC_HEADER "api/simple-cpp-unit.hpp;api/TestSuite.hpp;api/TestMethod.hpp")
+  PUBLIC_HEADER "api/Bool.hpp;api/Double.hpp;api/Float.hpp;api/Integer.hpp;api/LongDouble.hpp;api/LongInt.hpp;api/LongLongInt.hpp;api/Object.hpp;api/primitive_type_all.hpp;api/ShortInt.hpp;api/SignedChar.hpp;api/simple-cpp-unit.hpp;api/test.hpp;api/UnsignedChar.hpp;api/UnsignedInt.hpp;api/UnsignedLongInt.hpp;api/UnsignedLongLongInt.hpp;api/UnsignedShortInt.hpp;api/WChar.hpp")
 configure_file(simple-cpp-unit.pc.in simple-cpp-unit.pc @ONLY)
 target_include_directories(simple-cpp-unit PRIVATE .)
 target_include_directories(simple-cpp-unit PUBLIC api)
