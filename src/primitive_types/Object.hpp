@@ -3,8 +3,9 @@
 
 class Object {
   public:
-    Object();
-    virtual ~Object();
+    Object() {};
+    virtual ~Object() {};
+  protected:
   private:
 };
 
