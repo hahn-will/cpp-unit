@@ -1,0 +1,29 @@
+.header-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 2.25rem;
+}
+
+.page-header {
+  line-height: 1;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
