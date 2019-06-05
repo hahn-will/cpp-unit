@@ -31,30 +31,6 @@ class Double : public Object {
     Double& operator/=(const T a) { value /= a; return *this; }
     Double& operator/=(const Double &b) { return operator/=(b.GetValue()); }
 
-    template <typename T>
-    Double& operator%=(const T a) { value %= a; return *this; }
-    Double& operator%=(const Double &b) { return operator%=(b.GetValue()); }
-
-    template <typename T>
-    Double& operator&=(const T a) { value &= a; return *this; }
-    Double& operator&=(const Double &b) { return operator&=(b.GetValue()); }
-
-    template <typename T>
-    Double& operator|=(const T a) { value |= a; return *this; }
-    Double& operator|=(const Double &b) { return operator|=(b.GetValue()); }
-
-    template <typename T>
-    Double& operator^=(const T a) { value ^= a; return *this; }
-    Double& operator^=(const Double &b) { return operator^=(b.GetValue()); }
-
-    template <typename T>
-    Double& operator<<=(const T a) { value <<= a; return *this; }
-    Double& operator<<=(const Double &b) { return operator<<=(b.GetValue()); }
-
-    template <typename T>
-    Double& operator>>=(const T a) { value >>= a; return *this; }
-    Double& operator>>=(const Double &b) { return operator>>=(b.GetValue()); }
-
     // Increment Decrement operators
     Double& operator++() { ++value; return *this; }
     Double operator++(int) { double temp = value; value++; return Double(temp); }
@@ -93,30 +69,6 @@ class Double : public Object {
     template <typename T>
     Double operator/(const T &b) const { return Double(value / b); }
     Double operator/(const Double &b) const { return operator/(b.GetValue()); }
-
-    template <typename T>
-    Double operator%(const T &b) const { return Double(value % b); }
-    Double operator%(const Double &b) const { return operator%(b.GetValue()); }
-
-    template <typename T>
-    Double operator&(const T &b) const { return Double(value & b); }
-    Double operator&(const Double &b) const { return operator&(b.GetValue()); }
-
-    template <typename T>
-    Double operator|(const T &b) const { return Double(value | b); }
-    Double operator|(const Double &b) const { return operator|(b.GetValue()); }
-
-    template <typename T>
-    Double operator^(const T &b) const { return Double(value ^ b); }
-    Double operator^(const Double &b) const { return operator^(b.GetValue()); }
-
-    template <typename T>
-    Double operator<<(const T &b) const { return Double(value << b); }
-    Double operator<<(const Double &b) const { return operator<<(b.GetValue()); }
-
-    template <typename T>
-    Double operator>>(const T &b) const { return Double(value >> b); }
-    Double operator>>(const Double &b) const { return operator>>(b.GetValue()); }
 
     // Comparison Operators
     template <typename T>

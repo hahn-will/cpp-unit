@@ -2,8 +2,5 @@
 
 TestSuite::TestSuite() {}
 
-TestSuite::~TestSuite() {}
-
-void TestSuite::AddTestMethod(TestMethod *tm) {}
-
-void TestSuite::RunAllTests() {}
+TestSuite::~TestSuite() {
+}

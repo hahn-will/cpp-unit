@@ -31,30 +31,6 @@ class Float : public Object {
     Float& operator/=(const T a) { value /= a; return *this; }
     Float& operator/=(const Float &b) { return operator/=(b.GetValue()); }
 
-    template <typename T>
-    Float& operator%=(const T a) { value %= a; return *this; }
-    Float& operator%=(const Float &b) { return operator%=(b.GetValue()); }
-
-    template <typename T>
-    Float& operator&=(const T a) { value &= a; return *this; }
-    Float& operator&=(const Float &b) { return operator&=(b.GetValue()); }
-
-    template <typename T>
-    Float& operator|=(const T a) { value |= a; return *this; }
-    Float& operator|=(const Float &b) { return operator|=(b.GetValue()); }
-
-    template <typename T>
-    Float& operator^=(const T a) { value ^= a; return *this; }
-    Float& operator^=(const Float &b) { return operator^=(b.GetValue()); }
-
-    template <typename T>
-    Float& operator<<=(const T a) { value <<= a; return *this; }
-    Float& operator<<=(const Float &b) { return operator<<=(b.GetValue()); }
-
-    template <typename T>
-    Float& operator>>=(const T a) { value >>= a; return *this; }
-    Float& operator>>=(const Float &b) { return operator>>=(b.GetValue()); }
-
     // Increment Decrement operators
     Float& operator++() { ++value; return *this; }
     Float operator++(int) { float temp = value; value++; return Float(temp); }
@@ -93,30 +69,6 @@ class Float : public Object {
     template <typename T>
     Float operator/(const T &b) const { return Float(value / b); }
     Float operator/(const Float &b) const { return operator/(b.GetValue()); }
-
-    template <typename T>
-    Float operator%(const T &b) const { return Float(value % b); }
-    Float operator%(const Float &b) const { return operator%(b.GetValue()); }
-
-    template <typename T>
-    Float operator&(const T &b) const { return Float(value & b); }
-    Float operator&(const Float &b) const { return operator&(b.GetValue()); }
-
-    template <typename T>
-    Float operator|(const T &b) const { return Float(value | b); }
-    Float operator|(const Float &b) const { return operator|(b.GetValue()); }
-
-    template <typename T>
-    Float operator^(const T &b) const { return Float(value ^ b); }
-    Float operator^(const Float &b) const { return operator^(b.GetValue()); }
-
-    template <typename T>
-    Float operator<<(const T &b) const { return Float(value << b); }
-    Float operator<<(const Float &b) const { return operator<<(b.GetValue()); }
-
-    template <typename T>
-    Float operator>>(const T &b) const { return Float(value >> b); }
-    Float operator>>(const Float &b) const { return operator>>(b.GetValue()); }
 
     // Comparison Operators
     template <typename T>

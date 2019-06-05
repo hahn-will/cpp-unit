@@ -31,30 +31,6 @@ class LongDouble : public Object {
     LongDouble& operator/=(const T a) { value /= a; return *this; }
     LongDouble& operator/=(const LongDouble &b) { return operator/=(b.GetValue()); }
 
-    template <typename T>
-    LongDouble& operator%=(const T a) { value %= a; return *this; }
-    LongDouble& operator%=(const LongDouble &b) { return operator%=(b.GetValue()); }
-
-    template <typename T>
-    LongDouble& operator&=(const T a) { value &= a; return *this; }
-    LongDouble& operator&=(const LongDouble &b) { return operator&=(b.GetValue()); }
-
-    template <typename T>
-    LongDouble& operator|=(const T a) { value |= a; return *this; }
-    LongDouble& operator|=(const LongDouble &b) { return operator|=(b.GetValue()); }
-
-    template <typename T>
-    LongDouble& operator^=(const T a) { value ^= a; return *this; }
-    LongDouble& operator^=(const LongDouble &b) { return operator^=(b.GetValue()); }
-
-    template <typename T>
-    LongDouble& operator<<=(const T a) { value <<= a; return *this; }
-    LongDouble& operator<<=(const LongDouble &b) { return operator<<=(b.GetValue()); }
-
-    template <typename T>
-    LongDouble& operator>>=(const T a) { value >>= a; return *this; }
-    LongDouble& operator>>=(const LongDouble &b) { return operator>>=(b.GetValue()); }
-
     // Increment Decrement operators
     LongDouble& operator++() { ++value; return *this; }
     LongDouble operator++(int) { long double temp = value; value++; return LongDouble(temp); }
@@ -93,30 +69,6 @@ class LongDouble : public Object {
     template <typename T>
     LongDouble operator/(const T &b) const { return LongDouble(value / b); }
     LongDouble operator/(const LongDouble &b) const { return operator/(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator%(const T &b) const { return LongDouble(value % b); }
-    LongDouble operator%(const LongDouble &b) const { return operator%(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator&(const T &b) const { return LongDouble(value & b); }
-    LongDouble operator&(const LongDouble &b) const { return operator&(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator|(const T &b) const { return LongDouble(value | b); }
-    LongDouble operator|(const LongDouble &b) const { return operator|(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator^(const T &b) const { return LongDouble(value ^ b); }
-    LongDouble operator^(const LongDouble &b) const { return operator^(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator<<(const T &b) const { return LongDouble(value << b); }
-    LongDouble operator<<(const LongDouble &b) const { return operator<<(b.GetValue()); }
-
-    template <typename T>
-    LongDouble operator>>(const T &b) const { return LongDouble(value >> b); }
-    LongDouble operator>>(const LongDouble &b) const { return operator>>(b.GetValue()); }
 
     // Comparison Operators
     template <typename T>

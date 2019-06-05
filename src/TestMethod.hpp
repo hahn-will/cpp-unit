@@ -2,25 +2,27 @@
 #define TEST_METHOD_HPP__
 
 #include <vector>
+#include <Object.hpp>
+#include <utility>
 
 class TestMethod {
   public:
-    TestMethod(int);
+    TestMethod(int num_params) : num_params(num_params) {}
     ~TestMethod();
-    bool (*test_function)(void *);
-    void AddTestCase(void *);
-    void AddTestCaseDeleteFunction(void (*)(void *), void *);
+
+    bool (*test_function)(...);
+    void AddTestCase(Object **);
+    void AddTestCaseDeleteFunction(void (*)(Object **, int), Object **);
+    template<std::size_t N>
     void RunAllTestCases();
   private:
-    std::vector<void *> testCases;
-    std::vector<void (*)(void *)> delete_functions;
-    int num_parameters;
+    std::vector<Object **> testCases;
+    std::vector<void (*)(Object **, int)> delete_functions;
+    int num_params;
+    template<std::size_t... I>
+    void unpack(Object **arr, std::index_sequence<I...>) { test_function(*(arr[I])...); }
+    template<std::size_t N>
+    void RunTestCase(Object **arr);
 };
-
-#define TEST_CASE(tm, params)\
-  tm->AddTestCase(params);
-
-#define TEST_CASE_DELETE(tm, params, del_func)\
-  tm->AddTestCaseDeleteFunction(params, del_func);
 
 #endif
