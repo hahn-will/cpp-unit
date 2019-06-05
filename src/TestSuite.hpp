@@ -3,23 +3,23 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
 class TestSuite {
   public:
-    TestSuite() {}
-    ~TestSuite() {}
+    TestSuite();
+    TestSuite(std::string);
+    ~TestSuite();
     void process_result(std::string name,
                         std::string args,
                         std::string exit_details,
                         bool result);
+    void SetOutputFileName(const std::string);
+    void SetOutputFormat(const FileFormat *const);
   private:
+    std::ostream output;
+    std::string output_file_name;
+    FileFormat *output_file_format;
 };
-
-void TestSuite::process_result(std::string name,
-                          std::string args,
-                          std::string exit,
-                          bool result) {
-  std::cout << name << " " << (result ? "passed " : "failed on assertion ") << exit << " with arguments " << args << std::endl;
-}
 
 #endif

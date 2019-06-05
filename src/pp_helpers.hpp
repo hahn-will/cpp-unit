@@ -14,11 +14,6 @@
 };\
 t1::t1() : TestSuite()
 
-#define ASSERT_TRUE(assertion)\
-  if (!assertion) {\
-    exit = #assertion;\
-    return false;\
-  }
 
 #define TEST_METHOD(m1, ...)\
   std::function<bool(std::string &, __VA_ARGS__)> m1 = [](std::string &exit, __VA_ARGS__) -> bool
@@ -29,5 +24,11 @@ t1::t1() : TestSuite()
   std::string exit;\
   bool result = m1(exit, __VA_ARGS__);\
   process_result(name, args, exit, result);
+
+#define ASSERT_TRUE(assertion)\
+  if (!assertion) {\
+    exit = #assertion;\
+    return false;\
+  }
 
 #endif
