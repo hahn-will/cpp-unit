@@ -26,9 +26,19 @@ t1::t1() : TestSuite()
   process_result(name, args, exit, result);
 
 #define ASSERT_TRUE(assertion)\
-  if (!assertion) {\
+  if (!(assertion)) {\
     exit = #assertion;\
     return false;\
   }
+
+#define ASSERT_FALSE(assertion)\
+  if (assertion) {\
+    exit = #assertion;\
+    return false;\
+  }
+
+#define ASSERT_EQUAL(a, b) ASSERT_TRUE(a == b)
+
+#define ASSERT_NOT_EQUAL(a, b) ASSERT_FALSE(a == b)
 
 #endif

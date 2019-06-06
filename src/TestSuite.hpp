@@ -7,19 +7,21 @@
 
 class TestSuite {
   public:
-    TestSuite();
-    TestSuite(std::string);
-    ~TestSuite();
+    TestSuite(){}
+    ~TestSuite(){}
     void process_result(std::string name,
                         std::string args,
                         std::string exit_details,
                         bool result);
-    void SetOutputFileName(const std::string);
-    void SetOutputFormat(const FileFormat *const);
   private:
-    std::ostream output;
-    std::string output_file_name;
-    FileFormat *output_file_format;
 };
+
+void TestSuite::process_result(std::string name,
+                          std::string args,
+                          std::string exit,
+                          bool result) {
+  std::cout << "[" << (result ? "\033[1;32mPASSED" : "\033[1;31mFAILED") << "\033[0m] ";
+  std::cout << name << " " << (result ? "passed" : "failed on assertion ") << exit << " with arguments " << args << std::endl;
+}
 
 #endif
