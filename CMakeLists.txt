@@ -1,7 +1,5 @@
 cmake_minimum_required (VERSION 3.13)
-project (simple-cpp-unit VERSION 1.0.0
-  LANGUAGES CXX
-  DESCRIPTION "A simple cpp unit test library")
+project (simple-cpp-unit LANGUAGES CXX)
 
 # Adding sources macros
 macro (add_test_sources)
@@ -32,8 +30,12 @@ macro (add_sources)
     endif()
 endmacro()
 
+
 add_subdirectory (tests)
 add_subdirectory (src)
 
 add_executable (simple-cpp-unit ${SRCS})
 target_compile_options (simple-cpp-unit PRIVATE -Wall -Werror)
+
+add_executable (simple-cpp-unit-tests ${SRC_TESTS})
+target_compile_options (simple-cpp-unit-tests PRIVATE -Wall -Werror)
