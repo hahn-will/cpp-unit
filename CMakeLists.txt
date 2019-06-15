@@ -1,22 +1,39 @@
-cmake_minimum_required(VERSION 3.13)
-project(simple-cpp-unit VERSION 1.0.0
+cmake_minimum_required (VERSION 3.13)
+project (simple-cpp-unit VERSION 1.0.0
   LANGUAGES CXX
   DESCRIPTION "A simple cpp unit test library")
-include(GNUInstallDirs)
 
-add_library(simple-cpp-unit SHARED src/test.cpp)
-set_target_properties(simple-cpp-unit PROPERTIES
-  VERSION ${PROJECT_VERSION}
-  PUBLIC_HEADER "api/Bool.hpp;api/Double.hpp;api/Float.hpp;api/Integer.hpp;api/LongDouble.hpp;api/LongInt.hpp;api/LongLongInt.hpp;api/Object.hpp;api/primitive_type_all.hpp;api/ShortInt.hpp;api/SignedChar.hpp;api/simple-cpp-unit.hpp;api/test.hpp;api/UnsignedChar.hpp;api/UnsignedInt.hpp;api/UnsignedLongInt.hpp;api/UnsignedLongLongInt.hpp;api/UnsignedShortInt.hpp;api/WChar.hpp")
-configure_file(simple-cpp-unit.pc.in simple-cpp-unit.pc @ONLY)
-target_include_directories(simple-cpp-unit PRIVATE .)
-target_include_directories(simple-cpp-unit PUBLIC api)
-install(TARGETS simple-cpp-unit
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# Adding sources macros
+macro (add_test_sources)
+    file (RELATIVE_PATH _relPath "${PROJECT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+    foreach (_src ${ARGN})
+        if (_relPath)
+          list (APPEND SRC_TESTS "${_relPath}/${_src}")
+        else()
+          list (APPEND SRC_TESTS "${_src}")
+        endif()
+    endforeach()
+    if (_relPath)
+        set (SRC_TESTS ${SRC_TESTS} PARENT_SCOPE)
+    endif()
+endmacro()
 
-install(FILES ${CMAKE_BINARY_DIR}/simple-cpp-unit.pc
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+macro (add_sources)
+    file (RELATIVE_PATH _relPath "${PROJECT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+    foreach (_src ${ARGN})
+        if (_relPath)
+            list (APPEND SRCS "${_relPath}/${_src}")
+        else()
+            list (APPEND SRCS "${_src}")
+        endif()
+    endforeach()
+    if (_relPath)
+        set (SRCS ${SRCS} PARENT_SCOPE)
+    endif()
+endmacro()
 
-add_executable(simple-cpp-unit-tests tests/Main.cpp)
-target_link_libraries(simple-cpp-unit-tests simple-cpp-unit)
+add_subdirectory (tests)
+add_subdirectory (src)
+
+add_executable (simple-cpp-unit ${SRCS})
+target_compile_options (simple-cpp-unit PRIVATE -Wall -Werror)
