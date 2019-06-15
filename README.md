@@ -8,11 +8,13 @@ A simple C++ unit testing framework, designed after other testing frameworks fro
     ```
     mkdir build && cd build
     cmake ..
-    make install
+    make
     ```
     
 ## Information
-- This library relies heavily on macros to create the behavior desired for this to work as I intend it to, however, this means
-there may be undefined behavior if these macros are not used as intended.
-- To see how to use this library, view the wiki (not yet created).
-- This library is created using a only a couple header files, which can all be found in the "api" folder
+- This program relies heavily on additional preprocessing accomplished on top of the already existing c++ preprocessing, so errors may come from innacurately used macros.
+- If there are any issues, create an issue, otherwise try to fix it yourself
+
+## Future Steps
+- In the future this project may include integration with popular development environments
+- Faster and more accurate preprocessing
