@@ -6,7 +6,6 @@
 
 namespace compiler {
   std::string compile_all(std::vector<std::string> &,
-                          const std::string &,
                           const std::string &);
 };
 
