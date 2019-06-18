@@ -2,6 +2,7 @@
 
 #include <sys/stat.h>
 #include <sstream>
+#include <regex>
 
 using namespace std;
 
@@ -33,4 +34,12 @@ string utils::aggregate(const vector<string> &strings) {
 
 bool utils::check_directory(const string &input) {
   return file_exists(input);
+}
+
+bool utils::match_method_signature(const string &input_string) {
+  stringstream ss;
+  ss << "([^ ]+([ ]+)[^ ]+)([ ]*\\:\\:[ ]*[^ :]+)*([ ]*)"
+     << "((\\\(\\))|(\\\([^,]\\))|(\\\(([^,]+(\\,([^,]+))*)\\)))([ ]*)"
+     <<"((\\\{)|\\;)[ ]*";
+  return regex_match(input_string, regex(ss.str()));
 }

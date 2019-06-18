@@ -24,4 +24,6 @@ namespace utils {
   std::string aggregate(const std::vector<std::string> &);
 
   bool check_directory(const std::string &);
+
+  bool match_method_signature(const std::string &);
 };
