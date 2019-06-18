@@ -84,6 +84,9 @@ int main() {
     }
   }
   if (failed) {
-    cout << "failed test cases" << endl;
+    cout << "failed match_method_signature test cases" << endl;
+  }
+  else {
+    cout << "passed match_method_signature test cases" << endl;
   }
 }
