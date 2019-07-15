@@ -35,7 +35,7 @@ add_subdirectory (tests)
 add_subdirectory (src)
 
 add_executable (simple-cpp-unit ${SRCS})
-target_compile_options (simple-cpp-unit PRIVATE -Wall -Werror)
+target_compile_options (simple-cpp-unit PRIVATE -Wall -Werror -ldl)
 
 add_executable (simple-cpp-unit-tests ${SRC_TESTS})
 target_compile_options (simple-cpp-unit-tests PRIVATE -Wall -Werror)

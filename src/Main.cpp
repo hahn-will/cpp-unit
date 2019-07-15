@@ -1,21 +1,29 @@
 #include <iostream>
-#include <stdlib.h>
-#include <vector>
-#include <string>
+#include <cstdlib>
+#include <dlfcn.h>
 
-#include "preprocessor.hpp"
-#include "compiler.hpp"
+int main(int argc, char **argv) {
+  if (argc < 3)
+    return -1;
+  void *handle;
 
-#ifndef CXX_COMPILER
-#define CXX_COMPILER "g++"
-#endif
+  void (*func)();
 
-using namespace std;
+  char *error;
+  handle = dlopen(argv[1], RTLD_LAZY);
+  if (!handle) {
+    std::cerr << dlerror() << std::endl;
+    return -1;
+  }
 
-int main(int argc, char *argv[]) {
-  vector<string> arguments = preprocessor::process_all(argc, argv);
-  arguments.insert(arguments.begin(), CXX_COMPILER);
-  string output = "build";
-  string f = "test";
-  cout << compiler::compile_all(arguments, output, f);
+  dlerror();
+
+  *(void**) (&func) = dlsym(handle, argv[2]);
+
+  if ((error = dlerror()) != NULL) {
+    std::cerr << error << std::endl;
+    return -1;
+  }
+
+  func();
 }
