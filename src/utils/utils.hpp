@@ -4,6 +4,7 @@
 #include "ProcessHandler.hpp"
 
 unsigned update_file_num(unsigned);
+std::string exec_to_string(const char *);
 
 namespace errors {
   int log(ProcessHandler &);
