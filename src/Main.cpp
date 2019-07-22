@@ -2,9 +2,15 @@
 #include <cstdlib>
 #include <dlfcn.h>
 
+#include "command_line/CommandLine.hpp"
+#include "utils/utils.hpp"
+
 int main(int argc, char **argv) {
-  if (argc < 3)
-    return -1;
+  CommandLine cl(argc, argv);
+
+  if (!cl.ProcessArgs())
+    return errors::log(cl);
+
   void *handle;
 
   void (*func)();
