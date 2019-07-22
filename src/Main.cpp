@@ -33,3 +33,8 @@ int main(int argc, char **argv) {
 
   func();
 }
+
+// DESIRED FEATURES
+// * Error Logging
+// * automatically create a new makefile when necessary
+// * generate a "ui" to access the files correctly
