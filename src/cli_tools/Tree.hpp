@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 using namespace std;
 
@@ -11,9 +12,10 @@ class Tree {
     Tree(const string, Tree * = nullptr);
     bool IsRoot();
     const string GetValue();
-    void AddSibling();
+    Tree *AddSibling();
     void AddParent();
     void AddChild();
+    void DFSTraversal(function<void(string)>);
   private:
     bool is_holder_parent;
     string stored_value;
