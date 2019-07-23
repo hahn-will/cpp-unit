@@ -8,18 +8,31 @@
 
 using namespace std;
 
+// Declaration for the class 'Terminal'
 class Terminal {
   public:
-    Terminal();
-    void Print(const string);
-    void Print(const string, const int, const int);
+    Terminal(); // The default and only constructor
+    void Print(const string); // The print function, params const string value
+    void Print(const string, const int, const int); // The print function:
+                                                    // params:
+                                                    // const string value
+                                                    // const int x
+                                                    // const int y
 
-    void CreateHierarchyChoice(const Tree *);
-    void Prompt();
+    void CreateHierarchyChoice(const Tree *);   // Builds a hierarchy prompt
+                                                // params:
+                                                // const Tree *hierarchcy tree
+    vector<string> Prompt();                    // Prompts the User for select
+                                                // return:
+                                                // vector<string> selected
   private:
     string writing_string;
     struct termios terminal_options;
     struct termios revert_options;
+    int prompt_height;
+    vector<string> prompt_strings;
+    vector<int> cursor_pos;
+    vector<bool> prompt_selected;
 };
 
 #endif

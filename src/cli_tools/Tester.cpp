@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "Terminal.hpp"
+
 using namespace std;
 
 void test_function(function<void(string)> exec) {
@@ -15,6 +17,19 @@ void test_function(function<void(string)> exec) {
 }
 
 int main() {
+  Terminal t;
+  Tree *new_node = new Tree("asdf");
+  Tree *root = new_node->AddSibling(new Tree("basdf"));
+  new_node->AddChild(new Tree("Test"));
+
+  t.CreateHierarchyChoice(root);
+
+  t.Prompt();
+
+  delete (root);
+}
+
+/*int main() {
   cout << "a" << endl;
   cout << "b" << endl;
 
@@ -34,12 +49,17 @@ int main() {
   char c = getchar();
 
   while (c != ':') {
+    if (c == '\015' || c == '\012') {
+      cout << "enter pressed" << endl;
+      cout.flush();
+    }
     putchar(c);
     c = getchar();
+    
   }
 
   fflush(stdout);
 
   tcsetattr(STDOUT_FILENO, TCSANOW, &old_options);
   fflush(stdout);
-}
+}*/
