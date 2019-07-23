@@ -13,7 +13,7 @@ Tree::~Tree() {
   }
 }
 
-bool Tree::IsRoot() {
+bool Tree::IsRoot() const {
   return parent == nullptr;
 }
 
@@ -45,17 +45,17 @@ Tree *Tree::AddChild(Tree *child) {
   return this;
 }
 
-void Tree::DFSTraversal(function<void(string, int)> executed_function) {
+void Tree::DFSTraversal(function<void(string, int)> executed_function) const {
   DFSHelper(executed_function, IsRoot() &&is_holder_parent ? -1 : 0);
 }
 
-void Tree::DFSHelper(function<void(string, int)> exec, int depth) {
+void Tree::DFSHelper(function<void(string, int)> exec, int depth) const {
   if (is_holder_parent)
     return;
 
   exec(stored_value, depth);
 
-  for (Tree *&t : children) { 
+  for (Tree *const &t : children) { 
     t->DFSHelper(exec, depth + 1);
   }
 }

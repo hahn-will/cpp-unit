@@ -11,14 +11,14 @@ class Tree {
   public:
     Tree(const string, bool = false, Tree * = nullptr);
     ~Tree();
-    bool IsRoot();
+    bool IsRoot() const;
     const string GetValue();
     Tree *AddSibling(Tree *);
     Tree *AddParent(Tree *);
     Tree *AddChild(Tree *);
-    void DFSTraversal(function<void(string, int)>);
+    void DFSTraversal(function<void(string, int)>) const;
   private:
-    void DFSHelper(function<void(string, int)>, int);
+    void DFSHelper(function<void(string, int)>, int) const;
     bool is_holder_parent;
     string stored_value;
     vector<Tree *> children;

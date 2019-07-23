@@ -4,6 +4,7 @@
 #include "Tree.hpp"
 
 #include <string>
+#include <termios.h>
 
 using namespace std;
 
@@ -17,6 +18,8 @@ class Terminal {
     void Prompt();
   private:
     string writing_string;
+    struct termios terminal_options;
+    struct termios revert_options;
 };
 
 #endif
