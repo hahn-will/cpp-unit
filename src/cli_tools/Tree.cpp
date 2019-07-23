@@ -1,40 +1,61 @@
 #include "Tree.hpp"
 
-Tree::Tree(const string value, Tree *parent) : stored_value(value),
-                                               parent(parent) {
+Tree::Tree(const string value,
+           bool is_holder_parent,
+           Tree *parent) : is_holder_parent(is_holder_parent),
+                                    stored_value(value),
+                                    parent(parent) {
+}
+
+Tree::~Tree() {
+  for (Tree *&t : children) {
+    delete (t);
+  }
 }
 
 bool Tree::IsRoot() {
-  return children.size() != 0;
+  return parent == nullptr;
 }
 
 const string Tree::GetValue() {
   return stored_value;
 }
 
-Tree *Tree::AddSibling() {
+Tree *Tree::AddSibling(Tree *sibling) {
   if (!parent) {
-    parent = new Tree("");
+    parent = new Tree("", true);
     parent->AddChild(this);
   }
 
-  return nullptr;
+  parent->AddChild(sibling);
+  return parent;
 }
 
-void Tree::AddParent() {
+Tree *Tree::AddParent(Tree *parent) {
+  if (parent)
+    throw new std::runtime_error("The parent already exists");
 
+  this->parent = parent;
+  return this->parent;
 }
 
-// Change AddChild signature, finish the addSibling/addparent
-
-void Tree::AddChild() {
-
+Tree *Tree::AddChild(Tree *child) {
+  children.push_back(child);
+  child->parent = this;
+  return this;
 }
 
-void Tree::DFSTraversal(function<void(string)> executed_function) {
-  executed_function(stored_value);
+void Tree::DFSTraversal(function<void(string, int)> executed_function) {
+  DFSHelper(executed_function, IsRoot() &&is_holder_parent ? -1 : 0);
+}
 
-  for (Tree *&t : children) {
-    t->DFSTraversal(executed_function);
+void Tree::DFSHelper(function<void(string, int)> exec, int depth) {
+  if (is_holder_parent)
+    return;
+
+  exec(stored_value, depth);
+
+  for (Tree *&t : children) { 
+    t->DFSHelper(exec, depth + 1);
   }
 }

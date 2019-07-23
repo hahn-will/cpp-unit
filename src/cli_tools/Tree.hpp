@@ -9,14 +9,16 @@ using namespace std;
 
 class Tree {
   public:
-    Tree(const string, Tree * = nullptr);
+    Tree(const string, bool = false, Tree * = nullptr);
+    ~Tree();
     bool IsRoot();
     const string GetValue();
-    Tree *AddSibling();
-    void AddParent();
-    void AddChild();
-    void DFSTraversal(function<void(string)>);
+    Tree *AddSibling(Tree *);
+    Tree *AddParent(Tree *);
+    Tree *AddChild(Tree *);
+    void DFSTraversal(function<void(string, int)>);
   private:
+    void DFSHelper(function<void(string, int)>, int);
     bool is_holder_parent;
     string stored_value;
     vector<Tree *> children;
