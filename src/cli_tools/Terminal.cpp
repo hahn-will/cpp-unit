@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sstream>
 #include <functional>
+#include <sys/ioctl.h>
 
 // Default constructor for the Terminal class
 // Mostly just initializes values when necessary
@@ -18,6 +19,10 @@ Terminal::Terminal() {
   cfmakeraw(&terminal_options);
   writing_string = "";
   prompt_height = 0;
+
+  struct winsize size;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+  terminal_height = size.ws_row;
 }
 
 // Function to print text to the screen
@@ -60,6 +65,8 @@ void Terminal::CreateHierarchyChoice(const Tree *tree) {
 // prompting where character input is given
 // returns a vector of strings which represent the selected values
 vector<string> Terminal::Prompt() {
+  cout << terminal_height << endl;
+  cout << prompt_height << endl;
   fflush(stdout);
   tcsetattr(STDOUT_FILENO, TCSANOW, &terminal_options);
   cout << writing_string;
@@ -94,6 +101,12 @@ vector<string> Terminal::Prompt() {
               cout.flush();
             }
             break;
+          case 'C':
+            if (prompt_selected.size() > current_location)
+              prompt_selected[current_location] =
+                !prompt_selected[current_location];
+            cout << (prompt_selected[current_location] ? "x" : "+") << "\033[D";
+            break;
         }
         break;
     }
@@ -106,6 +119,10 @@ vector<string> Terminal::Prompt() {
   tcsetattr(STDOUT_FILENO, TCSANOW, &revert_options);
 
   vector<string> chosen;
+
+  for (unsigned i = 0; (i < prompt_strings.size()) &&
+                       (i < prompt_selected.size()); i++)
+    if (prompt_selected.at(i)) chosen.push_back(prompt_strings.at(i));
 
   return chosen;
 }

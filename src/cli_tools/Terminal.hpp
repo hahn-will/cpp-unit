@@ -30,6 +30,7 @@ class Terminal {
     struct termios terminal_options;
     struct termios revert_options;
     int prompt_height;
+    int terminal_height;
     vector<string> prompt_strings;
     vector<int> cursor_pos;
     vector<bool> prompt_selected;

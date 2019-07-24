@@ -23,10 +23,42 @@ int main() {
   Tree *new_node = new Tree("asdf");
   Tree *root = new_node->AddSibling(new Tree("basdf"));
   new_node->AddChild(new Tree("Test"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
+new_node->AddSibling(new Tree("basdf"));
 
   t.CreateHierarchyChoice(root);
 
-  t.Prompt();
+  vector<string> v = t.Prompt();
+
+  for (string &s : v)
+    cout << s << endl;
 //  root->DFSTraversal(test_function);
 
   delete (root);
