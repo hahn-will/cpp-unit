@@ -7,7 +7,6 @@
 #include <sstream>
 #include <functional>
 
-
 // Default constructor for the Terminal class
 // Mostly just initializes values when necessary
 // Throws a runtime error when it cannot get the terminal attributes
@@ -18,6 +17,7 @@ Terminal::Terminal() {
   memcpy(&revert_options, &terminal_options, sizeof(struct termios));
   cfmakeraw(&terminal_options);
   writing_string = "";
+  prompt_height = 0;
 }
 
 // Function to print text to the screen
@@ -45,7 +45,7 @@ void Terminal::CreateHierarchyChoice(const Tree *tree) {
     for (int i = 0; i < depth; i++) {
       output << "  ";
     }
-    output << " + " << value;
+    output << " + " << value << depth * 2 + 2 << "\n\r";
     prompt_strings.push_back(value);
     prompt_selected.push_back(false);
     cursor_pos.push_back(depth * 2 + 2);
@@ -62,59 +62,51 @@ void Terminal::CreateHierarchyChoice(const Tree *tree) {
 vector<string> Terminal::Prompt() {
   fflush(stdout);
   tcsetattr(STDOUT_FILENO, TCSANOW, &terminal_options);
-  cout << writing_string << endl;
+  cout << writing_string;
 
-  char read_char = getchar();
+  cout << "\033[" << prompt_height << "A";
+  if (cursor_pos.size() > 0)
+    cout << "\033[" << cursor_pos[0] << 'G';
 
-  cout << "\033[" << prompt_height << "A" << "\033[2G";
-  int current_position = 0;
+  cout.flush();
 
-  while (read_char != 'q') {
-    switch(read_char) {
-      case '\015':
-        prompt_selected[current_position] = !prompt_selected[current_position];
-        cout << (prompt_selected[current_position] ? "x" : "+") << "\033[D";
-        cout.flush();
-        break;
-      case '\012':
-        prompt_selected[current_position] = !prompt_selected[current_position];
-        cout << (prompt_selected[current_position] ? "x" : "+") << "\033[D";
-        cout.flush();
-        break;
+  char c = getchar();
+  unsigned current_location = 0;
+
+  while (c != 'd' && c != 'q') {
+    switch(c) {
       case '\033':
-        if ((read_char = getchar()) == '[') {
-          read_char = getchar();
-          switch(read_char) {
-            case 'A':
-              if (current_position > 0) current_position--;
-              cout << "\033[A" << "\033[" <<
-                cursor_pos[current_position] << "G";
+        getchar();
+        c = getchar();
+        switch(c) {
+          case 'A':
+            if (current_location > 0) {
+              current_location--;
+              cout << "\033[A\033[" << cursor_pos[current_location] << 'G';
               cout.flush();
-              break;
-            case 'B':
-              if (current_position < prompt_height - 1) current_position++;
-              cout << "\033[B" << "\033[" <<
-                cursor_pos[current_position] << "G";
+            }
+            break;
+          case 'B':
+            if (cursor_pos.size() > cursor_pos.size() -1 && 
+                current_location < cursor_pos.size() - 1) {
+              current_location++;
+              cout << "\033[B\033[" << cursor_pos[current_location] << 'G';
               cout.flush();
-              break;
-          }
+            }
+            break;
         }
         break;
-      case 'd':
-        goto done;
-        break;
     }
+    c = getchar();
   }
-done:
+
+  cout << "\033[" << prompt_height - current_location << "B\r";
+
   fflush(stdout);
   tcsetattr(STDOUT_FILENO, TCSANOW, &revert_options);
 
   vector<string> chosen;
 
-  for (unsigned i = 0; (i < prompt_selected.size()) &&
-                       (i < prompt_strings.size()); i++) {
-    chosen.push_back(prompt_strings.at(i));
-  }
-
   return chosen;
 }
+

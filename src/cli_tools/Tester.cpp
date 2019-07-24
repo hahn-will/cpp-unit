@@ -12,8 +12,10 @@
 
 using namespace std;
 
-void test_function(function<void(string)> exec) {
-  exec("test");
+void test_function(string a, int depth) {
+  for (int i = 0; i < depth; i++)
+    cout << "  ";
+  cout << a << endl;
 }
 
 int main() {
@@ -25,6 +27,7 @@ int main() {
   t.CreateHierarchyChoice(root);
 
   t.Prompt();
+//  root->DFSTraversal(test_function);
 
   delete (root);
 }
@@ -53,7 +56,11 @@ int main() {
       cout << "enter pressed" << endl;
       cout.flush();
     }
-    putchar(c);
+    
+    if (c != '\033') {
+      putchar(c);
+    }
+    else getchar();
     c = getchar();
     
   }
