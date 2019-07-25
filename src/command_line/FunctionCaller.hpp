@@ -14,6 +14,7 @@ class FunctionCaller {
   public:
     FunctionCaller(vector<string> *);
     FunctionCaller(vector<string> *, bool);
+    ~FunctionCaller();
 
     void HandleTestCases();
   private:

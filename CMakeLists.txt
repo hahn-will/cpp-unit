@@ -23,7 +23,6 @@ add_subdirectory (src/macros)
 add_subdirectory (src/test_method)
 add_subdirectory (src/test_suite)
 add_subdirectory (src/utils)
-add_subdirectory (src/cli_tools)
 
 add_executable (simple-cpp-unit ${SRCS})
 target_compile_options (simple-cpp-unit PRIVATE -Wall -Werror -rdynamic)

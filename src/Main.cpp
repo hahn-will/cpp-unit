@@ -3,12 +3,19 @@
 #include <dlfcn.h>
 
 #include "command_line/CommandLine.hpp"
-#include "utils/utils.hpp"
+#include "command_line/FunctionCaller.hpp"
+//#include "utils/utils.hpp"
 
 int main(int argc, char **argv) {
   CommandLine cl(argc, argv);
 
   if (!cl.ProcessArgs())
+    return -1;
+
+  FunctionCaller fc(cl.GetInputFiles());
+  
+
+/*  if (!cl.ProcessArgs())
     return errors::log(cl);
 
   void *handle;
@@ -31,7 +38,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  func();
+  func();*/
 }
 
 // DESIRED FEATURES
