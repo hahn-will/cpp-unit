@@ -1,6 +1,7 @@
 #include "FunctionCaller.hpp"
 
 #include <iostream>
+#include <fstream>
 
 // Constructor with default settings and list of input_files
 FunctionCaller::FunctionCaller(vector<string> *input_files) {
@@ -99,6 +100,8 @@ void FunctionCaller::BuildMakefile() {
   vector<string> shared_library_filenames =
     make_shared_library_filenames(*files_to_compile);
 
+  make_all_instruction(ss, shared_library_filenames);
+
   for (unsigned i = 0; (i < (*files_to_compile).size()) &&
                        (i < object_filenames.size()); i++) {
     ss << make_objectfile_dependency(files_to_compile->at(i),
@@ -114,5 +117,6 @@ void FunctionCaller::BuildMakefile() {
     ss << " " << object_filenames.at(i) << endl << endl;
   }
 
-  cout << ss.str() << endl;
+  ofstream output("simple-cpp-unit-tests.make");
+  output << ss.str() << endl;
 }
