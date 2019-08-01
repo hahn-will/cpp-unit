@@ -5,7 +5,7 @@ class SharedLibrary {
   public:
     SharedLibrary(const char *);
     ~SharedLibrary();
-    void *Execute(const char *);
+    void Execute(const char *);
   private:
     void *handle;
 };

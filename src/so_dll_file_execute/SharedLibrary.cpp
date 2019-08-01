@@ -12,12 +12,12 @@ SharedLibrary::~SharedLibrary() {
 
 }
 
-void *SharedLibrary::Execute(const char *function_name) {
+void SharedLibrary::Execute(const char *function_name) {
   char *error;
-  void * (*func)();
+  void  (*func)();
   *(void**) (&func) = dlsym(handle, function_name);
   if ((error = dlerror()))
     throw std::runtime_error(error);
 
-  return (void*)func();
+  func();
 }

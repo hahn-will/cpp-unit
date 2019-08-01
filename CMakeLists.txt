@@ -37,6 +37,7 @@ add_subdirectory (src/unit_build/macros)
 add_subdirectory (src/unit_build/test_method)
 add_subdirectory (src/unit_build/test_suite)
 add_subdirectory (src/unit_build/utils)
+add_subdirectory (src/so_dll_file_execute)
 
 add_executable (unit-build ${SRCS})
 add_executable (unit-execute ${SRC_EXECUTE})
